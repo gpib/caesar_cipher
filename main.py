@@ -12,13 +12,6 @@ def encrypt(text_to_encrypt, shift):
     encrypted_text_list = []
     encrypted_text = ""
 
-    # get index of the letter found in the text, assign to the new list
-    '''for letter in text_to_encrypt:
-        position  = alphabet.index(letter)
-        new_postion = position + shift
-        if letter in alphabet:
-            position_list.append(alphabet.index(letter))'''
-
     #get index of the letter found in the text, assign to the new list
     for letter in text_to_encrypt:
         if letter in alphabet:
@@ -30,7 +23,7 @@ def encrypt(text_to_encrypt, shift):
             shifted_list.append(var + shift)
         else:
             shifted_list.append(shift - (len(alphabet) - var))
-    print(shifted_list)
+
     #create list with shifted letters
     for var in shifted_list:
         encrypted_text_list.append(alphabet[var])
@@ -39,7 +32,34 @@ def encrypt(text_to_encrypt, shift):
     encrypted_text = ''.join(map(str, encrypted_text_list))
     print(f"Encrypted text {encrypted_text}")
 
+def decrypt(text_to_encrypt, shift):
+    position_list = []
+    shifted_list=[]
+    encrypted_text_list = []
+    encrypted_text = ""
+
+    #get index of the letter found in the text, assign to the new list
+    for letter in text_to_encrypt:
+        if letter in alphabet:
+            position_list.append(alphabet.index(letter))
+
+    #shift the letters
+    for var in position_list:
+        if var - shift >= 0:
+            shifted_list.append(var - shift)
+        else:
+            shifted_list.append((len(alphabet) - abs(var - shift)))
+
+    #create list with shifted letters
+    for var in shifted_list:
+        encrypted_text_list.append(alphabet[var])
+
+    #merge letter into the string
+    encrypted_text = ''.join(map(str, encrypted_text_list))
+    print(f"Decrypted text {encrypted_text}")
+
 encrypt(text_to_encrypt= text, shift = shift)
+decrypt(text_to_encrypt= text, shift = shift)
 
     #TODO-2: Inside the 'encrypt' function, shift each letter of the 'text' forwards in the alphabet by the shift amount and print the encrypted text.
     #e.g.
