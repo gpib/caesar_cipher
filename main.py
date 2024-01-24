@@ -1,13 +1,43 @@
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+#direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
 text = input("Type your message:\n").lower()
 shift = int(input("Type the shift number:\n"))
 
 #TODO-1: Create a function called 'encrypt' that takes the 'text' and 'shift' as inputs.
 
 def encrypt(text_to_encrypt, shift):
-    print(text_to_encrypt, shift)
+    position_list = []
+    shifted_list=[]
+    encrypted_text_list = []
+    encrypted_text = ""
+
+    # get index of the letter found in the text, assign to the new list
+    '''for letter in text_to_encrypt:
+        position  = alphabet.index(letter)
+        new_postion = position + shift
+        if letter in alphabet:
+            position_list.append(alphabet.index(letter))'''
+
+    #get index of the letter found in the text, assign to the new list
+    for letter in text_to_encrypt:
+        if letter in alphabet:
+            position_list.append(alphabet.index(letter))
+
+    #shift the letters
+    for var in position_list:
+        if var + shift < len(alphabet):
+            shifted_list.append(var + shift)
+        else:
+            shifted_list.append(shift - (len(alphabet) - var))
+    print(shifted_list)
+    #create list with shifted letters
+    for var in shifted_list:
+        encrypted_text_list.append(alphabet[var])
+
+    #merge letter into the string
+    encrypted_text = ''.join(map(str, encrypted_text_list))
+    print(f"Encrypted text {encrypted_text}")
 
 encrypt(text_to_encrypt= text, shift = shift)
 
