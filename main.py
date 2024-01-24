@@ -1,10 +1,8 @@
+import logo
+print(logo)
+import math
+
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-
-direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
-text = input("Type your message:\n").lower()
-shift = int(input("Type the shift number:\n"))
-
-#TODO-1: Create a function called 'encrypt' that takes the 'text' and 'shift' as inputs.
 def caesar(text_to_encrypt, shift, choice):
     position_list = []
     shifted_list=[]
@@ -22,14 +20,15 @@ def caesar(text_to_encrypt, shift, choice):
             if var + shift < len(alphabet):
                 shifted_list.append(var + shift)
             else:
-                shifted_list.append(shift - (len(alphabet) - var))
+                #shifted_list.append(shift - (len(alphabet) - var))
+                shifted_list.append(shift - len(alphabet) * math.floor(shift/len(alphabet)) - (len(alphabet) - var))
     elif choice == "decode":
         # shift the letters
         for var in position_list:
             if var - shift >= 0:
                 shifted_list.append(var - shift)
             else:
-                shifted_list.append((len(alphabet) - abs(var - shift)))
+                shifted_list.append((len(alphabet) - abs(var - (shift - len(alphabet) * math.floor(shift/len(alphabet))))))
 
     #create list with shifted letters
     for var in shifted_list:
@@ -37,12 +36,17 @@ def caesar(text_to_encrypt, shift, choice):
 
     #merge letter into the string
     encrypted_text = ''.join(map(str, encrypted_text_list))
-    print(f"Caesar text {encrypted_text}")
+    print(f"Caesar {direction}"+"d" f" text is {encrypted_text}")
 
-caesar(text_to_encrypt=text, shift=shift, choice = direction)
+loop = input("Do you want to proceed? yes/ no")
+while loop == "yes":
+    direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+    text = input("Type your message:\n").lower()
+    shift = int(input("Type the shift number:\n"))
+    caesar(text_to_encrypt=text, shift=shift, choice = direction)
 
 
-
+    # TODO-1: Create a function called 'encrypt' that takes the 'text' and 'shift' as inputs.
     #TODO-2: Inside the 'encrypt' function, shift each letter of the 'text' forwards in the alphabet by the shift amount and print the encrypted text.
 
 #TODO-3: Call the encrypt function and pass in the user inputs. You should be able to test the code and encrypt a message.
